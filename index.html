@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Random character - Rick and Morty</title>
+    <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/jquery.interactive_bg.min.js"></script>
+</head>
+
+<body>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        
+        body {
+            font-family: 'Megrim', cursive;
+            background: #383838;
+        }
+        
+        .con {
+            height: 100vh;
+        }
+        
+        .fondo,
+        .con {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        
+        .centro {
+            position: absolute;
+            margin-top: 3vw;
+        }
+        
+        .marco {
+            width: 13vw;
+            height: 13vw;
+            margin: 0px auto;
+            border: solid 5px #b9f348;
+            background-color: #7fc53d;
+            border-radius: 10px;
+        }
+        
+        .boton {
+            width: 13vw;
+            background-color: #b9f348;
+            margin-top: 1vw;
+            font-weight: bold;
+            font-size: 3em;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        
+        .bg {
+            position: absolute;
+            min-height: 100% !important;
+            width: 100%;
+            z-index: 0;
+        }
+        
+        .ibg-bg {
+            position: absolute;
+        }
+        
+        @media (max-width: 900px) {
+            .marco {
+                width: 20vw;
+                height: 20vw;
+            }
+            .boton {
+                width: 20vw;
+                font-size: 1.3em;
+            }
+        }
+    </style>
+    <div class="bg" data-ibg-bg="assets/img/piclke.png">
+        <div class="con container text-center">
+            <div class="fondo">
+                <img src="assets/img/rick.png" class="logo img-fluid">
+                <div class="centro">
+                    <div class="marco" style="background-image: url('https://rickandmortyapi.com/api/character/avatar/1.jpeg'); background-size: 100%;"></div>
+                    <div id="parar" class="boton"> Quien soy? </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(() => {
+
+            $(".bg").interactive_bg({
+                strength: 250,
+                scale: 1.05,
+                animationSpeed: "500ms",
+                contain: true,
+                wrapContent: false
+            });
+
+
+            sorteandose = true;
+
+            sorteo = setInterval(cosito, 10);
+
+            function sortear() {
+                sorteo = setInterval(cosito, 10);
+            }
+
+            function cosito(real) {
+
+                switch (real) {
+                    case true:
+                        random = Math.floor(Math.random() * 492) + 1;
+                        break;
+
+                    default:
+                        random = Math.floor(Math.random() * 50) + 1;
+                        break;
+                }
+
+                url = 'https://rickandmortyapi.com/api/character/avatar/' + random + '.jpeg';
+                $('.marco').css('background-image', 'url(' + url + ')');
+            }
+
+            $('#parar').click(() => {
+                switch (sorteandose) {
+                    case true:
+                        $('#parar').html('de nuevo');
+                        clearInterval(sorteo);
+                        cosito(true);
+                        sorteandose = false;
+                        break;
+
+                    default:
+                        sortear()
+                        $('#parar').html('Parar');
+                        sorteandose = true;
+                        break;
+                }
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>
