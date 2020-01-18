@@ -73,11 +73,12 @@
         
         @media (max-width: 900px) {
             .marco {
-                width: 20vw;
-                height: 20vw;
+                margin-top: 20px;
+                width: 25vw;
+                height: 25vw;
             }
             .boton {
-                width: 20vw;
+                width: 25vw;
                 font-size: 1.3em;
             }
         }
@@ -87,13 +88,16 @@
             <div class="fondo">
                 <img src="assets/img/rick.png" class="logo img-fluid">
                 <div class="centro">
-                    <div class="marco" style="background-image: url('https://rickandmortyapi.com/api/character/avatar/1.jpeg'); background-size: 100%;"></div>
+                    <div class="marco" style="background-image: url('https://rickandmortyapi.com/api/character/avatar/249.jpeg'); background-size: 100%;"></div>
                     <div id="parar" class="boton"> Quien soy? </div>
                 </div>
             </div>
 
         </div>
     </div>
+    <audio id="audio">
+        <source src="assets/audio/song.mp3" type="audio/mp3">
+      </audio>
     <script type="text/javascript">
         $(document).ready(() => {
 
@@ -105,12 +109,16 @@
                 wrapContent: false
             });
 
-
-            sorteandose = true;
+            sorteandose = false;
 
             sorteo = setInterval(cosito, 10);
+            clearInterval(sorteo);
+            url = 'https://rickandmortyapi.com/api/character/avatar/249.jpeg';
+            $('.marco').css('background-image', 'url(' + url + ')');
+
 
             function sortear() {
+                $("#audio")[0].play();
                 sorteo = setInterval(cosito, 10);
             }
 
@@ -131,6 +139,7 @@
             }
 
             $('#parar').click(() => {
+
                 switch (sorteandose) {
                     case true:
                         $('#parar').html('de nuevo');
